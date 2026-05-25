@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: solaudit-db
+    environment:
+      POSTGRES_USER: solaudit
+      POSTGRES_PASSWORD: solaudit
+      POSTGRES_DB: solaudit
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - solaudit-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: solaudit-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - solaudit-network
+
+  backend:
+    build: ./backend
+    container_name: solaudit-backend
+    environment:
+      - MIMO_BASE_URL=https://token-plan-sgp.xiaomimimo.com/v1
+      - MIMO_API_KEY=${MIMO_API_KEY}
+      - MIMO_MODEL=mimo-v2.5-pro
+      - DATABASE_URL=postgresql://solaudit:solaudit@postgres:5432/solaudit
+      - REDIS_URL=redis://redis:6379/0
+      - SECRET_KEY=${SECRET_KEY:-change-this-in-production}
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - solaudit-network
+    volumes:
+      - ./backend:/app
+      - /tmp/solaudit:/tmp/solaudit
+
+  frontend:
+    build: ./frontend
+    container_name: solaudit-frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    networks:
+      - solaudit-network
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+
+volumes:
+  postgres_data:
+
+networks:
+  solaudit-network:
+    driver: bridge

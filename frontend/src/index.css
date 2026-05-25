@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-dark-100 text-gray-100;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+.card {
+  @apply bg-dark-200 rounded-lg p-6 shadow-lg border border-gray-800;
+}
+
+.btn-primary {
+  @apply bg-dark-400 hover:bg-red-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors;
+}
+
+.btn-secondary {
+  @apply bg-dark-300 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors;
+}
+
+.severity-badge {
+  @apply px-3 py-1 rounded-full text-xs font-bold uppercase;
+}
+
+.severity-critical {
+  @apply bg-severity-critical text-white;
+}
+
+.severity-high {
+  @apply bg-severity-high text-white;
+}
+
+.severity-medium {
+  @apply bg-severity-medium text-white;
+}
+
+.severity-low {
+  @apply bg-severity-low text-white;
+}
+
+.severity-info {
+  @apply bg-severity-info text-white;
+}
+
+.code-block {
+  @apply bg-gray-900 rounded-lg p-4 overflow-x-auto text-sm font-mono;
+}

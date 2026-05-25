@@ -1,0 +1,35 @@
+# SolAudit
+
+node_modules/
+dist/
+build/
+.env
+.env.local
+
+# Backend
+backend/__pycache__/
+backend/.venv/
+backend/*.pyc
+backend/.pytest_cache/
+backend/alembic/versions/*.pyc
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# Reports
+/tmp/solaudit/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
